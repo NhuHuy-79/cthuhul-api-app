@@ -69,7 +69,6 @@ fun MythosBottomSheet(
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
-
             Spacer(modifier = Modifier.height(16.dp))
         }
     }

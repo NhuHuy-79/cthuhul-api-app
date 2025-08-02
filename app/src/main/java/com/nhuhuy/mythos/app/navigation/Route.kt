@@ -11,5 +11,5 @@ sealed class Route {
     data class Detail(val id: Int) : Route()
 
     @Serializable
-    data object About : Route()
+    data class Wiki(val url: String, val name: String): Route()
 }

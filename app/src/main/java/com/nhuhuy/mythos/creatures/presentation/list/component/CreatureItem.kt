@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import coil.size.Size
 import com.nhuhuy.mythos.R
 import com.nhuhuy.mythos.creatures.domain.model.Creature
 import com.nhuhuy.mythos.creatures.domain.model.capitalizeName
@@ -50,7 +51,7 @@ fun CreatureItem(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(creature.img.firstOrNull())
                     .crossfade(true)
-                    .size(100)
+                    .size(Size.ORIGINAL)
                     .build(),
                 error = painterResource(R.drawable.img_placholder),
                 contentDescription = "creature image",

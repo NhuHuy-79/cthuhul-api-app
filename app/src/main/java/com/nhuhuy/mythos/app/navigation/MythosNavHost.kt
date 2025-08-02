@@ -13,10 +13,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.nhuhuy.mythos.creatures.domain.model.capitalizeName
 import com.nhuhuy.mythos.creatures.presentation.detail.DetailScreen
 import com.nhuhuy.mythos.creatures.presentation.detail.DetailViewModel
 import com.nhuhuy.mythos.creatures.presentation.list.ListScreen
 import com.nhuhuy.mythos.creatures.presentation.list.ListViewModel
+import com.nhuhuy.mythos.creatures.presentation.web.WebScreen
 
 
 @Composable
@@ -43,7 +45,15 @@ fun MythosNavHost(
                 onDetailClick = { id ->
                     navHostController.navigate(Route.Detail(id))
                 },
-                viewModel = listVM
+                viewModel = listVM,
+                onGoWiki = {
+                    navHostController.navigate(
+                        Route.Wiki(
+                            url = "https://lovecraft.fandom.com/wiki/Main_Page",
+                            name = "THE H.P.LOVECRAFT WIKI"
+                        )
+                    )
+                }
             )
         }
 
@@ -54,15 +64,47 @@ fun MythosNavHost(
                     AnimatedContentTransitionScope.SlideDirection.Right,
                     tween(400, easing = LinearEasing)
                 )
+            },
+            popEnterTransition = {
+                slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Right,
+                    tween(400, easing = LinearEasing)
+                )
             }
+
         ) { entry ->
             val detailVM: DetailViewModel = hiltViewModel()
             DetailScreen(
                 id = entry.arguments?.getInt("id") ?: 0,
                 modifier = Modifier,
                 viewModel = detailVM,
-                onMoreClick = { },
+                onMoreClick = { url, name ->
+                    navHostController.navigate(
+                        Route.Wiki(
+                            url = url,
+                            name = name
+                        )
+                    )
+                },
                 onCategorySearch = {},
+                onNavigateBack = {
+                    navHostController.popBackStack()
+                }
+            )
+        }
+
+        composable<Route.Wiki>(
+            enterTransition = { fadeIn(tween(500, easing = FastOutSlowInEasing)) },
+            popExitTransition = {
+                slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Right,
+                    tween(400, easing = LinearEasing)
+                )
+            }
+        ){ entry ->
+            WebScreen(
+                url = entry.arguments?.getString("url") ?: "",
+                name = entry.arguments?.getString("name")?.capitalizeName() ?: "",
                 onNavigateBack = {
                     navHostController.popBackStack()
                 }

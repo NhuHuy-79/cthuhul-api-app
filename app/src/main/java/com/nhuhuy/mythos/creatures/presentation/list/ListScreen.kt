@@ -63,6 +63,7 @@ import com.nhuhuy.mythos.creatures.presentation.list.component.TabScreen
 fun ListScreen(
     modifier: Modifier,
     onDetailClick: (Int) -> Unit,
+    onGoWiki: () -> Unit,
     viewModel: ListViewModel,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -73,7 +74,6 @@ fun ListScreen(
     val focusManager = LocalFocusManager.current
     var isShowBottomSheet by remember { mutableStateOf(false) }
 
-    val context = LocalContext.current
 
     Log.d("List Screen", "$state")
     Scaffold(
@@ -146,10 +146,8 @@ fun ListScreen(
                 MythosBottomSheet(
                     onDismiss = { isShowBottomSheet = false },
                     onGoWiki = {
-                        val url = "https://lovecraft.fandom.com/wiki/Main_Page"
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         isShowBottomSheet = false
-                        context.startActivity(intent)
+                        onGoWiki()
                     },
                     onAboutUs = {
 

@@ -1,7 +1,5 @@
 package com.nhuhuy.mythos.creatures.presentation.detail
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.nhuhuy.mythos.core.ui.component.ErrorSection
@@ -50,7 +47,7 @@ fun DetailScreen(
     id: Int,
     modifier: Modifier,
     viewModel: DetailViewModel,
-    onMoreClick: () -> Unit,
+    onMoreClick: (String, String) -> Unit,
     onCategorySearch: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
@@ -84,17 +81,12 @@ fun DetailScreen(
 @Composable
 fun SuccessDetailSection(
     onNavigateBack: () -> Unit,
-    onMoreClick: () -> Unit,
+    onMoreClick: (String, String) -> Unit,
     creature: Creature?,
     onCategorySearch: () -> Unit,
     onImageChoose: (String) -> Unit,
     state: DetailState
 ) {
-    val context = LocalContext.current
-    val toWikiIntent = Intent(
-        Intent.ACTION_VIEW,
-        Uri.parse(creature?.wikiUrl ?: "https://lovecraft.fandom.com/wiki/Main_Page")
-    )
     var isDialogOpen by remember { mutableStateOf(false) }
     var isShowImage by remember { mutableStateOf(false) }
     val defaultText = "Undefined"
@@ -201,7 +193,7 @@ fun SuccessDetailSection(
                 MythosDialog(
                     onDismiss = { isDialogOpen = false },
                     onConfirm = {
-                        context.startActivity(toWikiIntent)
+                        onMoreClick(creature?.wikiUrl ?: "", creature?.name ?: "")
                         isDialogOpen = false
                     }
                 )
