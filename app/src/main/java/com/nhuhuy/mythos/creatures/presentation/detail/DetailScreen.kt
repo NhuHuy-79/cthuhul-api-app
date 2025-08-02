@@ -29,12 +29,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.nhuhuy.mythos.core.ui.component.ErrorSection
 import com.nhuhuy.mythos.core.ui.component.LoadingSection
 import com.nhuhuy.mythos.core.ui.component.ScreenState
+import com.nhuhuy.mythos.core.utils.capitalizeName
 import com.nhuhuy.mythos.creatures.domain.model.Creature
-import com.nhuhuy.mythos.creatures.domain.model.capitalizeName
 import com.nhuhuy.mythos.creatures.presentation.detail.component.DetailContent
 import com.nhuhuy.mythos.creatures.presentation.detail.component.DetailImageSlider
 import com.nhuhuy.mythos.creatures.presentation.detail.component.DetailOtherName
@@ -100,7 +101,8 @@ fun SuccessDetailSection(
                         text = creature?.name?.capitalizeName() ?: defaultText,
                         style = MaterialTheme.typography.headlineMedium,
                         modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        overflow = TextOverflow.Ellipsis
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),

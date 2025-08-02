@@ -24,8 +24,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Size
 import com.nhuhuy.mythos.R
+import com.nhuhuy.mythos.core.utils.capitalizeName
 import com.nhuhuy.mythos.creatures.domain.model.Creature
-import com.nhuhuy.mythos.creatures.domain.model.capitalizeName
 
 @Composable
 fun CreatureItem(

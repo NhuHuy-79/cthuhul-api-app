@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,7 +41,6 @@ fun WebScreen(
     onNavigateBack: () -> Unit,
 ) {
     val context = LocalContext.current
-
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     var isLoading by remember { mutableStateOf(true) }
     val webView = remember {
@@ -57,17 +57,26 @@ fun WebScreen(
                     super.onPageStarted(view, url, favicon)
                     isLoading = true
                 }
-
                 override fun onPageCommitVisible(view: WebView?, url: String?) {
                     super.onPageCommitVisible(view, url)
                     isLoading = false
                 }
             }
-
             loadUrl(url)
         }
     }
 
+    //Clean Webview when user leave it
+    DisposableEffect(Unit) {
+        onDispose {
+            webView.stopLoading()
+            webView.clearHistory()
+            webView.removeAllViews()
+            webView.clearCache(true)
+            webView.destroy()
+        }
+    }
+    //Handle back button
     DisposableEffect(webView) {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -88,7 +97,7 @@ fun WebScreen(
                 title = {
                     Text(
                         text = name,
-                        style = MaterialTheme.typography.headlineMedium
+                        style = MaterialTheme.typography.headlineMedium,
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
@@ -107,6 +116,18 @@ fun WebScreen(
                             contentDescription = "go back"
                         )
                     }
+                },
+                actions = {
+                    IconButton(
+                        onClick = {
+                            webView.reload()
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Rounded.Refresh,
+                            contentDescription = "refresh"
+                        )
+                    }
                 }
             )
         }
@@ -115,16 +136,12 @@ fun WebScreen(
             modifier = Modifier.fillMaxSize().padding(it),
             contentAlignment = Alignment.Center
         ){
-
             AndroidView(
                 factory = { webView },
                 modifier = Modifier.fillMaxSize()
             )
 
-
-            AnimatedVisibility(
-                visible = isLoading
-            ) {
+            AnimatedVisibility(visible = isLoading){
                 LoadingSection()
             }
 

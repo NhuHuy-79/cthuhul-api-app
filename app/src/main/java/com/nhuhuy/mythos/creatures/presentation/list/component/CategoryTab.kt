@@ -19,8 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.nhuhuy.mythos.core.utils.filterCategory
 import com.nhuhuy.mythos.creatures.domain.model.Creature
-import com.nhuhuy.mythos.creatures.domain.model.filterCategory
 import com.nhuhuy.mythos.creatures.presentation.list.PagerSection
 import kotlinx.coroutines.launch
 

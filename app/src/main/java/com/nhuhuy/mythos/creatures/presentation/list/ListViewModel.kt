@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nhuhuy.mythos.core.ui.component.ScreenState
 import com.nhuhuy.mythos.core.utils.Result
+import com.nhuhuy.mythos.core.utils.filterName
 import com.nhuhuy.mythos.creatures.domain.model.Creature
-import com.nhuhuy.mythos.creatures.domain.model.filterName
 import com.nhuhuy.mythos.creatures.domain.usecase.FetchCreatureList
 import com.nhuhuy.mythos.creatures.domain.usecase.ObserveDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel

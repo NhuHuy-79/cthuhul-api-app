@@ -1,8 +1,6 @@
 package com.nhuhuy.mythos.creatures.domain.usecase
 
 import com.nhuhuy.mythos.core.utils.Result
-import com.nhuhuy.mythos.core.utils.getDataOrNull
-import com.nhuhuy.mythos.creatures.data.mapper.toEntity
 import com.nhuhuy.mythos.creatures.data.source.LocalCreatureSource
 import com.nhuhuy.mythos.creatures.data.source.RemoteCreatureSource
 import com.nhuhuy.mythos.creatures.domain.model.Creature

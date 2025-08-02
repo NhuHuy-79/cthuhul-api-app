@@ -13,7 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.nhuhuy.mythos.creatures.domain.model.capitalizeName
+import com.nhuhuy.mythos.core.utils.capitalizeName
 import com.nhuhuy.mythos.creatures.presentation.detail.DetailScreen
 import com.nhuhuy.mythos.creatures.presentation.detail.DetailViewModel
 import com.nhuhuy.mythos.creatures.presentation.list.ListScreen
