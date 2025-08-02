@@ -22,7 +22,6 @@ import com.nhuhuy.mythos.creatures.presentation.web.WebScreen
 
 
 @Composable
-
 fun MythosNavHost(
     navHostController: NavHostController,
 ) {

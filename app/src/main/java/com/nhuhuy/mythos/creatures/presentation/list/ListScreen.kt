@@ -156,10 +156,7 @@ fun ListScreen(
             }
 
             when (state.screenState) {
-                is ScreenState.Error -> ErrorSection(
-                    {}
-                )
-
+                is ScreenState.Error -> ErrorSection(viewModel::onRetry)
                 ScreenState.Loading -> LoadingSection()
                 ScreenState.Success -> TabScreen(
                     all = creatures,

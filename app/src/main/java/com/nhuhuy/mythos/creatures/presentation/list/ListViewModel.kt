@@ -7,6 +7,7 @@ import com.nhuhuy.mythos.core.ui.component.ScreenState
 import com.nhuhuy.mythos.core.utils.Result
 import com.nhuhuy.mythos.creatures.domain.model.Creature
 import com.nhuhuy.mythos.creatures.domain.model.filterName
+import com.nhuhuy.mythos.creatures.domain.usecase.FetchCreatureList
 import com.nhuhuy.mythos.creatures.domain.usecase.ObserveDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
@@ -24,7 +25,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    private val observeDataSource: ObserveDataSource
+    private val observeDataSource: ObserveDataSource,
+    private val fetchCreatureList: FetchCreatureList,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ListState())
@@ -44,6 +46,12 @@ class ListViewModel @Inject constructor(
     fun changeSearchStatus(value: Boolean) {
         _state.update {
             it.copy(isSearching = value)
+        }
+    }
+
+    fun onRetry(){
+        viewModelScope.launch {
+            fetchCreatureList()
         }
     }
 
@@ -80,5 +88,4 @@ class ListViewModel @Inject constructor(
         _searchQuery.value = ""
         Log.d("ViewModel Status", "isClear")
     }
-
 }
