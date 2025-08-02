@@ -71,6 +71,7 @@ fun MythosSearchBar(
             singleLine = true,
             textStyle = TextStyle(
                 fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             ),
             cursorBrush = SolidColor(MaterialTheme.colorScheme.onPrimaryContainer),
             decorationBox = { innerTextField ->
