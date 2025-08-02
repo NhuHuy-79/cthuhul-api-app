@@ -1,5 +1,7 @@
 package com.nhuhuy.mythos.creatures.presentation.list
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -40,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -66,11 +69,10 @@ fun ListScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val creatures by viewModel.uiList.collectAsStateWithLifecycle()
     val query by viewModel.searchQuery.collectAsStateWithLifecycle()
-
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     var isShowBottomSheet by remember { mutableStateOf(false) }
-
+    val context = LocalContext.current
 
     Log.d("List Screen", "$state")
     Scaffold(
@@ -125,7 +127,6 @@ fun ListScreen(
                             modifier = Modifier.size(24.dp)
                         )
                     }
-
                     Spacer(modifier = Modifier.width(8.dp))
                 },
             )
@@ -147,7 +148,14 @@ fun ListScreen(
                         onGoWiki()
                     },
                     onAboutUs = {
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/NhuHuy-79")
+                        ).also {
+                            context.startActivity(it)
+                        }
 
+                        isShowBottomSheet = false
                     }
                 )
             }
@@ -162,9 +170,7 @@ fun ListScreen(
             }
         }
     }
-
 }
-
 
 @Composable
 fun PagerSection(
