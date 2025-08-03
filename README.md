@@ -36,7 +36,7 @@ cd cthuhul-api
 - [Hilt/ Dagger](https://developer.android.com/training/dependency-injection/hilt-android?hl=vi)
 - [Retrofit](https://square.github.io/retrofit/)
 - [Coil](https://coil-kt.github.io/coil/compose/)
-- 
+- [Jetpack Navigation](https://developer.android.com/develop/ui/compose/navigation?hl=vi)
 ##  Credits🧾
 This project uses data from a public Lovecraft Mythos API.  
 We sincerely thank the original creator for making this data accessible.
